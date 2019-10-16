@@ -7,14 +7,13 @@ use InvalidArgumentException;
 /**
  * @author Yoann Aparici <y.aparici@lexik.fr>
  */
-final class AdapterCollector
+final class AdapterCollector implements AdapterCollectorInterface
 {
     private $elements = array();
 
     /**
      * Add an adapter
      *
-     * @param mixed $key
      * @param AbstractCurrencyAdapter $adapter
      */
     public function add(AbstractCurrencyAdapter $adapter)

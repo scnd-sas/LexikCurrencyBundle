@@ -15,10 +15,10 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('lexik_currency');
+        $treeBuilder = new TreeBuilder('lexik_currency');
 
-        $rootNode
+        //@formatter:off
+        $treeBuilder->getRootNode()
             ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('currencies')
@@ -78,9 +78,8 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                     ->defaultValue('https://query.yahooapis.com/v1/public/yql')
                 ->end()
-
-            ->end()
-        ;
+            ->end();
+        //@formatter:on
 
         return $treeBuilder;
     }

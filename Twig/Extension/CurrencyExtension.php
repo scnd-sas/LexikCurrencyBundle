@@ -2,7 +2,8 @@
 
 namespace Lexik\Bundle\CurrencyBundle\Twig\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Lexik\Bundle\CurrencyBundle\Currency\ConverterInterface;
+use Lexik\Bundle\CurrencyBundle\Currency\FormatterInterface;
 
 /**
  * Twig extension to format and convert currencies from templates.
@@ -12,19 +13,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class CurrencyExtension extends \Twig_Extension
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
+
+    private $formatter;
+    private $converter;
 
     /**
-     * Construct.
-     *
-     * @param ContainerInterface $container  We need the entire container to lazy load the Converter
+     * CurrencyExtension constructor.
+     * @param FormatterInterface $formatter
+     * @param ConverterInterface $converter
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(FormatterInterface $formatter, ConverterInterface $converter)
     {
-        $this->container = $container;
+        $this->formatter = $formatter;
+        $this->converter = $converter;
     }
 
     /**
@@ -40,19 +41,19 @@ class CurrencyExtension extends \Twig_Extension
     }
 
     /**
-     * @return \Lexik\Bundle\CurrencyBundle\Currency\ConverterInterface
+     * @return ConverterInterface
      */
     public function getConverter()
     {
-        return $this->container->get('lexik_currency.converter');
+        return $this->converter;
     }
 
     /**
-     * @return \Lexik\Bundle\CurrencyBundle\Currency\FormatterInterface
+     * @return FormatterInterface
      */
     public function getFormatter()
     {
-        return $this->container->get('lexik_currency.formatter');
+        return $this->formatter;
     }
 
     /**
@@ -60,7 +61,7 @@ class CurrencyExtension extends \Twig_Extension
      *
      * @param float   $value
      * @param string  $targetCurrency  target currency code
-     * @param boolean $round      roud converted value
+     * @param boolean $round      round converted value
      * @param string  $valueCurrency   $value currency code
      * @return float
      */

@@ -2,6 +2,8 @@
 
 namespace Lexik\Bundle\CurrencyBundle\Adapter;
 
+use Lexik\Bundle\CurrencyBundle\Entity\Currency;
+
 /**
  *
  * @author Cédric Girard <c.girard@lexik.fr>
@@ -65,9 +67,8 @@ abstract class AbstractCurrencyAdapter extends \ArrayIterator
     }
 
     /**
-     * Get managedCurrencies
-     *
-     * @return array
+     * @param $currencyClass
+     * @return mixed
      */
     public function setCurrencyClass($currencyClass)
     {
@@ -122,10 +123,10 @@ abstract class AbstractCurrencyAdapter extends \ArrayIterator
     abstract public function attachAll();
 
     /**
-     * Get identier value for the adapter must be unique
+     * Get identifier value for the adapter must be unique
      * for all the project
      *
      * @return string
      */
-    abstract protected function getIdentifier();
+    abstract public function getIdentifier();
 }
