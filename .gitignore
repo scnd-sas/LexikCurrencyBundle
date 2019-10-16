@@ -1,3 +1,4 @@
+.idea
 phpunit.xml
 .directory
 .project
@@ -5,4 +6,3 @@ phpunit.xml
 .settings
 vendor
 composer.lock
-.idea
