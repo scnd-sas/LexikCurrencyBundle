@@ -54,7 +54,7 @@ lexik_currency:
         managed: [EUR, USD, ...]  # [required] all currencies used in your app
 ```
 
-Additonal options (default values are shown here):
+Additional options (default values are shown here):
 
 ```yaml
 # app/config/config.yml
@@ -131,7 +131,7 @@ You can also pass more arguments, to display or not decimal and the currency sym
 {{ amount | currency_convert_format(targetCurrency, decimal, symbol, amountCurrency) }}
 ```
 
-##### Load conversions rate from another source (custom CurrencyAdatpter)
+##### Load conversions rate from another source (custom CurrencyAdapter)
 
 If you need to load conversions rates from another source you will have to create a CurrencyAdatpter and set it as the default adapter.
 
