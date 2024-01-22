@@ -1,5 +1,5 @@
 {
-    "name": "cocolabs-sas/currency-bundle",
+    "name": "lexik/currency-bundle",
     "type": "symfony-bundle",
     "description": "This Symfony2 bundle provide a service and a Twig extension to convert and display currencies. It is a fork of lexik/currency-bundle",
     "keywords": ["Symfony2", "bundle", "currency"],
