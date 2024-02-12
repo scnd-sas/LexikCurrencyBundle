@@ -15,7 +15,7 @@ class AdapterFactoryTest extends BaseUnitTestCase
 
     protected $doctrine;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->doctrine = $this->getMockDoctrine();
         $em = $this->getEntityManager();

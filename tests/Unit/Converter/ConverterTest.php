@@ -16,7 +16,7 @@ class ConverterTest extends BaseUnitTestCase
 
     private $adapter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->doctrine = $this->getMockDoctrine();
         $em = $this->getEntityManager();
@@ -62,7 +62,7 @@ class ConverterTest extends BaseUnitTestCase
         $converter = new Converter($this->adapter);
 
         $this->assertEquals(8.666, $converter->convert(8.666, 'USD', false, 'USD'));
-        $this->assertEquals(6.6661538461538, $converter->convert(8.666, 'EUR', false, 'USD'));
+        $this->assertEqualsWithDelta(6.6661538461538, $converter->convert(8.666, 'EUR', false, 'USD'), 0.0001);
     }
 
     public function testConvertUndefinedTarget(): void

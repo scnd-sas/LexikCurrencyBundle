@@ -8,6 +8,6 @@
             <generator strategy="AUTO" />
         </id>
         <field name="code" column="code" type="string" length="3" />
-        <field name="rate" column="rate" type="decimal" scale="4" />
+        <field name="rate" column="rate" type="decimal" scale="4" precision="11" />
     </entity>
 </doctrine-mapping>

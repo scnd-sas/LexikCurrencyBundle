@@ -2,6 +2,7 @@
 
 namespace Lexik\Bundle\CurrencyBundle\Tests\Unit;
 
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Lexik\Bundle\CurrencyBundle\Tests\Fixtures\CurrencyData;
@@ -56,22 +57,23 @@ abstract class BaseUnitTestCase extends TestCase
         $config->setMetadataDriverImpl($xmlDriver);
         $config->setProxyDir(sys_get_temp_dir());
         $config->setProxyNamespace('Proxy');
+        $config->setLazyGhostObjectEnabled(true);
 
         $conn = [
             'driver' => 'pdo_sqlite',
             'memory' => true,
         ];
 
-        return EntityManager::create($conn, $config);
+        $connection = DriverManager::getConnection($conn, $config);
+
+        return new EntityManager($connection, $config);
     }
 
     protected  function getMockDoctrine()
     {
         $em = $this->getMockSqliteEntityManager();
 
-        $doctrine = $this->getMockBuilder(Registry::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctrine = $this->createMock(Registry::class);
 
         $doctrine
             ->method('getManager')

@@ -39,10 +39,7 @@ class DoctrineCurrencyAdapter extends AbstractCurrencyAdapter
         $this->manager = $manager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetExists($index)
+    public function offsetExists(mixed $index): bool
     {
         if (!$this->initialized) {
             $this->initialize();
@@ -51,10 +48,7 @@ class DoctrineCurrencyAdapter extends AbstractCurrencyAdapter
         return parent::offsetExists($index);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetGet($index)
+    public function offsetGet(mixed $index): mixed
     {
         if (!$this->initialized) {
             $this->initialize();

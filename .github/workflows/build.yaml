@@ -1,0 +1,48 @@
+name: Continuous Integration
+
+on:
+    pull_request: ~
+    push: ~
+
+jobs:
+    tests:
+        runs-on: ubuntu-22.04
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - description: 'Symfony 5.4'
+                      php: '8.1'
+                      symfony: 5.4.*
+                    - description: 'Latest'
+                      php: '8.3'
+                      symfony: 6.4.*
+        name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Cache
+              uses: actions/cache@v3
+              with:
+                  path: ~/.composer/cache/files
+                  key: composer-${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.composer_option }}
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+            - name: install dev deps
+              if: contains(matrix.symfony, '-dev')
+              run: |
+                  composer config minimum-stability dev
+                  composer config prefer-stable true
+            - name: require specific Symfony version
+              if: matrix.symfony
+              run: |
+                  sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
+            - name: update vendors
+              run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
+            - name: install phpunit
+              run: vendor/bin/simple-phpunit install
+            - name: run tests
+              run: vendor/bin/simple-phpunit
+

@@ -14,9 +14,11 @@
 
     <services>
         <service id="lexik_currency.currency_extension" class="%lexik_currency.currency_extension.class%" public="true">
-            <argument type="service" id="lexik_currency.formatter" />
-            <argument type="service" id="lexik_currency.converter" />
             <tag name="twig.extension" />
+        </service>
+
+        <service id="lexik_currency.currency_runtime" class="Lexik\Bundle\CurrencyBundle\Twig\Extension\CurrencyRuntime">
+            <tag name="twig.runtime" />
         </service>
 
         <service id="lexik_currency.converter" class="%lexik_currency.converter.class%">
