@@ -5,11 +5,11 @@ namespace Lexik\Bundle\CurrencyBundle\Tests\Unit\Twig\Extension;
 use Lexik\Bundle\CurrencyBundle\Currency\Converter;
 use Lexik\Bundle\CurrencyBundle\Adapter\AdapterFactory;
 use Lexik\Bundle\CurrencyBundle\Currency\Formatter;
-use Lexik\Bundle\CurrencyBundle\Twig\Extension\CurrencyExtension;
+use Lexik\Bundle\CurrencyBundle\Twig\Extension\CurrencyRuntime;
 use Lexik\Bundle\CurrencyBundle\Tests\Unit\BaseUnitTestCase;
 use Lexik\Bundle\CurrencyBundle\Entity\Currency;
 
-class CurrencyExtensionTest extends BaseUnitTestCase
+class CurrencyRuntimeTest extends BaseUnitTestCase
 {
     private const CURRENCY_ENTITY = Currency::class;
 
@@ -18,7 +18,7 @@ class CurrencyExtensionTest extends BaseUnitTestCase
     private $converter;
     private $formatter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->doctrine = $this->getMockDoctrine();
         $em = $this->getEntityManager();
@@ -34,7 +34,7 @@ class CurrencyExtensionTest extends BaseUnitTestCase
 
     public function testConvert()
     {
-        $extension = new CurrencyExtension($this->formatter, $this->converter);
+        $extension = new CurrencyRuntime($this->formatter, $this->converter);
 
         $this->assertEquals(11.27, $extension->convert(8.666, 'USD'));
         $this->assertEquals(8.67, $extension->convert(8.666, 'EUR'));
@@ -42,7 +42,7 @@ class CurrencyExtensionTest extends BaseUnitTestCase
 
     public function testFormat()
     {
-        $extension = new CurrencyExtension($this->formatter, $this->converter);
+        $extension = new CurrencyRuntime($this->formatter, $this->converter);
 
         $this->assertEquals('8,67 €', $extension->format(8.666));
         $this->assertEquals('8,67 €', $extension->format(8.666, 'EUR'));
@@ -55,7 +55,7 @@ class CurrencyExtensionTest extends BaseUnitTestCase
 
     public function testConvertAndFormat()
     {
-        $extension = new CurrencyExtension($this->formatter, $this->converter);
+        $extension = new CurrencyRuntime($this->formatter, $this->converter);
 
         $this->assertEquals('11,27 $', $extension->convertAndFormat(8.666, 'USD'));
         $this->assertEquals('11,27 $', $extension->convertAndFormat(8.666, 'USD', false));
