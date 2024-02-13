@@ -18,6 +18,8 @@
         </service>
 
         <service id="lexik_currency.currency_runtime" class="Lexik\Bundle\CurrencyBundle\Twig\Extension\CurrencyRuntime">
+            <argument type="service" id="lexik_currency.formatter" />
+            <argument type="service" id="lexik_currency.converter" />
             <tag name="twig.runtime" />
         </service>
 
